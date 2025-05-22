@@ -1,0 +1,304 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Submission Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+    h1, h2 {
+      font-family: 'Montserrat', sans-serif;
+      letter-spacing: 0.5px;
+    }
+    :root {
+      --bg-color: #1e1e1e;
+      --card-bg: #2a2a2a;
+      --text-color: #e0e0e0;
+      --accent-color: #ffffff;
+      --muted-text: #cccccc;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: var(--accent-color);
+    }
+
+    .photo-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .photo-card {
+      background-color: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      padding: 1rem;
+      text-align: center;
+      width: 100%;
+      max-width: 320px;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: auto;
+      max-height: 320px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background-color: #444;
+      cursor: pointer;
+    }
+
+    .photo-caption {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .instructions {
+      font-size: 0.9rem;
+      color: var(--muted-text);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 1.5rem 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .photo-card {
+        padding: 0.8rem;
+      }
+
+      .photo-caption {
+        font-size: 1rem;
+      }
+
+      .instructions {
+        font-size: 0.85rem;
+      }
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1100;
+    }
+
+    /* Upload box styles */
+    .upload-container {
+      margin: 4rem auto 2rem auto;
+      padding: 2rem;
+      max-width: 600px;
+      background-color: var(--card-bg);
+      border: 2px dashed #555;
+      border-radius: 12px;
+      text-align: center;
+      transition: border-color 0.3s ease;
+    }
+
+    .upload-container.dragover {
+      border-color: #00bfff;
+    }
+
+    .upload-container p {
+      margin: 1rem 0;
+      font-size: 1rem;
+      color: var(--muted-text);
+    }
+
+    .upload-container input {
+      display: none;
+    }
+
+    .upload-container label {
+      background-color: #444;
+      color: #e0e0e0;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .preview-image {
+      margin-top: 1rem;
+      max-width: 100%;
+      max-height: 300px;
+      border-radius: 8px;
+      background-color: #333;
+    }
+  </style>
+</head>
+<body>
+  
+    <h1>How to Take Your Dental Photos</h1>
+    <p style="text-align:center; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1rem; color: var(--muted-text);">
+      These photos are essential for the pre-design and evaluation of your dental case. They help ensure accurate planning, but depending on the situation, additional images may be required for a complete assessment.
+    </p>
+    
+  <div class="photo-grid">
+    <div class="photo-card">
+      <img src="front-smile.jpg" alt="Front View with Smile" onclick="openModal('front-smile-detail.jpg')" />
+      <div class="photo-caption">Front View – Smiling</div>
+      <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
+    </div>
+    <div class="photo-card">
+      <img src="front-relaxed.jpg" alt="Front View Relaxed" onclick="openModal('front-relaxed-detail.jpg')" />
+      <div class="photo-caption">Front View – Relaxed</div>
+      <div class="instructions">Head upright, mouth closed, ears uncovered, no glasses.</div>
+    </div>
+    <div class="photo-card">
+      <img src="side-profile.jpg" alt="Side Profile" onclick="openModal('side-profile-detail.jpg')" />
+      <div class="photo-caption">Side Profile</div>
+      <div class="instructions">Rotate 90°, show full profile. Keep hair away and look straight.</div>
+    </div>
+  </div>
+
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Zoomed Photo" />
+    </div>
+  </div>
+
+  
+    <div style="margin-top: 6rem;"></div>
+    <h2>Submit Your Photo</h2>
+    <p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
+      Once you upload your photo, it will be analyzed by our AI system. You'll receive feedback based on the image quality:
+      <br><br>
+      <span style="color: red;">● Red</span> – The photo is not usable and should be retaken.<br>
+      <span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br>
+      <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
+    </p>
+    
+  <div class="upload-container" id="uploadBox">
+    <p>Drag & drop your JPG or PNG file here</p>
+    <p>or</p>
+    <label for="fileUpload">Click to browse</label>
+    <input type="file" id="fileUpload" accept=".jpg,.jpeg,.png" />
+    <img id="previewImage" class="preview-image" src="" alt="" style="display:none;" />
+    <button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
+  </div>
+
+  <script>
+    function openModal(imageSrc) {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = imageSrc;
+      modal.style.display = "flex";
+      requestAnimationFrame(() => {
+        modal.classList.add("show");
+      });
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("imageModal");
+      modal.classList.remove("show");
+      setTimeout(() => {
+        modal.style.display = "none";
+        document.getElementById("modalImage").src = "";
+      }, 500);
+    }
+
+    const uploadBox = document.getElementById('uploadBox');
+    const fileInput = document.getElementById('fileUpload');
+    const previewImage = document.getElementById('previewImage');
+
+    uploadBox.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadBox.classList.add('dragover');
+    });
+
+    uploadBox.addEventListener('dragleave', () => {
+      uploadBox.classList.remove('dragover');
+    });
+
+    uploadBox.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadBox.classList.remove('dragover');
+      handleFileUpload(e.dataTransfer.files[0]);
+    });
+
+    fileInput.addEventListener('change', () => {
+      handleFileUpload(fileInput.files[0]);
+    });
+
+    function handleFileUpload(file) {
+      if (!file.type.startsWith('image/')) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        previewImage.src = e.target.result;
+        previewImage.style.display = 'block';
+    document.getElementById("submitButton").style.display = 'inline-block';
+      };
+      reader.readAsDataURL(file);
+    }
+  </script>
+</body>
+</html>
