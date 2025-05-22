@@ -125,7 +125,56 @@
         font-size: 0.85rem;
       }
     }
-  </style>
+  
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.95);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transform: scale(0.95);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .modal.show {
+      display: flex;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .modal-content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 1100;
+    }
+</style>
 </head>
 <body>
   <h1>How to Take Your Dental Photos</h1>
@@ -135,17 +184,17 @@
 
   <div class="photo-grid">
     <div class="photo-card">
-      <img src="front-smile.jpg" alt="Front View with Smile" />
+      <img src="front-smile.jpg" onclick="openModal('front-smile-detail.jpg')" alt="Front View with Smile" />
       <div class="photo-caption">Front View – Smiling</div>
       <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
     </div>
     <div class="photo-card">
-      <img src="front-relaxed.jpg" alt="Front View Relaxed" />
+      <img src="front-relaxed.jpg" onclick="openModal('front-relaxed-detail.jpg')" alt="Front View Relaxed" />
       <div class="photo-caption">Front View – Relaxed</div>
       <div class="instructions">Head upright, mouth closed, ears uncovered, no glasses.</div>
     </div>
     <div class="photo-card">
-      <img src="side-profile.jpg" alt="Side Profile" />
+      <img src="side-profile.jpg" onclick="openModal('side-profile-detail.jpg')" alt="Side Profile" />
       <div class="photo-caption">Side Profile</div>
       <div class="instructions">Rotate 90°, show full profile. Keep hair away and look straight.</div>
     </div>
@@ -208,5 +257,35 @@
       reader.readAsDataURL(file);
     }
   </script>
+
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Zoomed Photo" />
+    </div>
+  </div>
+
+  <script>
+    function openModal(imageSrc) {
+      const modal = document.getElementById("imageModal");
+      const modalImage = document.getElementById("modalImage");
+      modalImage.src = imageSrc;
+      modal.style.display = "flex";
+      requestAnimationFrame(() => {
+        modal.classList.add("show");
+      });
+    }
+
+    function closeModal() {
+      const modal = document.getElementById("imageModal");
+      modal.classList.remove("show");
+      setTimeout(() => {
+        modal.style.display = "none";
+        document.getElementById("modalImage").src = "";
+      }, 500);
+    }
+  </script>
 </body>
+</html>
+
 </html>
