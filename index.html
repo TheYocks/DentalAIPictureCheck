@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,10 +7,7 @@
   <title>SmileCheck AI</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
-    h1, h2 {
-      font-family: 'Montserrat', sans-serif;
-      letter-spacing: 0.5px;
-    }
+
     :root {
       --bg-color: #1e1e1e;
       --card-bg: #2a2a2a;
@@ -26,9 +24,11 @@
       color: var(--text-color);
     }
 
-    h1, h2 {
+    h1 {
       text-align: center;
       color: var(--accent-color);
+      font-size: 2rem;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .photo-grid {
@@ -77,92 +77,14 @@
       line-height: 1.4;
     }
 
-    @media (max-width: 480px) {
-      body {
-        padding: 1.5rem 0.5rem;
-      }
-
-      h1 {
-        font-size: 1.6rem;
-      }
-
-      .photo-card {
-        padding: 0.8rem;
-      }
-
-      .photo-caption {
-        font-size: 1rem;
-      }
-
-      .instructions {
-        font-size: 0.85rem;
-      }
-    }
-
-    /* Modal styles */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0, 0, 0, 0.95);
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transform: scale(0.95);
-      transition: opacity 0.5s ease, transform 0.5s ease;
-    }
-
-    .modal.show {
-      display: flex;
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    .modal-content {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-    }
-
-    .modal-content img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #ffffff;
-      font-size: 2rem;
-      font-weight: bold;
-      cursor: pointer;
-      z-index: 1100;
-    }
-
-    /* Upload box styles */
     .upload-container {
-      margin: 4rem auto 2rem auto;
+      margin: 6rem auto 2rem auto;
       padding: 2rem;
       max-width: 600px;
       background-color: var(--card-bg);
       border: 2px dashed #555;
       border-radius: 12px;
       text-align: center;
-      transition: border-color 0.3s ease;
-    }
-
-    .upload-container.dragover {
-      border-color: #00bfff;
     }
 
     .upload-container p {
@@ -191,51 +113,55 @@
       border-radius: 8px;
       background-color: #333;
     }
+
+    @media (max-width: 480px) {
+      .photo-card {
+        padding: 0.8rem;
+      }
+      .photo-caption {
+        font-size: 1rem;
+      }
+      .instructions {
+        font-size: 0.85rem;
+      }
+    }
   </style>
 </head>
 <body>
-  
-    <h1>How to Take Your Dental Photos</h1>
-    <p style="text-align:center; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1rem; color: var(--muted-text);">
-      These photos are essential for the pre-design and evaluation of your dental case. They help ensure accurate planning, but depending on the situation, additional images may be required for a complete assessment.
-    </p>
-    
+  <h1>How to Take Your Dental Photos</h1>
+  <p style="text-align:center; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1rem; color: var(--muted-text);">
+    These photos are essential for the pre-design and evaluation of your dental case. They help ensure accurate planning, but depending on the situation, additional images may be required for a complete assessment.
+  </p>
+
   <div class="photo-grid">
     <div class="photo-card">
-      <img src="front-smile.jpg" alt="Front View with Smile" onclick="openModal('front-smile-detail.jpg')" />
+      <img src="front-smile.jpg" alt="Front View with Smile" />
       <div class="photo-caption">Front View – Smiling</div>
       <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
     </div>
     <div class="photo-card">
-      <img src="front-relaxed.jpg" alt="Front View Relaxed" onclick="openModal('front-relaxed-detail.jpg')" />
+      <img src="front-relaxed.jpg" alt="Front View Relaxed" />
       <div class="photo-caption">Front View – Relaxed</div>
       <div class="instructions">Head upright, mouth closed, ears uncovered, no glasses.</div>
     </div>
     <div class="photo-card">
-      <img src="side-profile.jpg" alt="Side Profile" onclick="openModal('side-profile-detail.jpg')" />
+      <img src="side-profile.jpg" alt="Side Profile" />
       <div class="photo-caption">Side Profile</div>
       <div class="instructions">Rotate 90°, show full profile. Keep hair away and look straight.</div>
     </div>
   </div>
 
-  <div id="imageModal" class="modal" onclick="closeModal()">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
-      <img id="modalImage" src="" alt="Zoomed Photo" />
-    </div>
+  <div style="text-align:center; margin-top: 6rem;">
+    <img src="logo-smilecheckai.png" alt="SmileCheck AI Logo" style="max-width: 250px; margin-bottom: 1rem;">
   </div>
+  <p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
+    Once you upload your photo, it will be analyzed by our AI system. You'll receive feedback based on the image quality:
+    <br><br>
+    <span style="color: red;">● Red</span> – The photo is not usable and should be retaken.<br>
+    <span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br>
+    <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
+  </p>
 
-  
-    <div style="margin-top: 6rem;"></div>
-    <h2>SmileCheckAI</h2>
-    <p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
-      Once you upload your photo, it will be analyzed by our AI system. You'll receive feedback based on the image quality:
-      <br><br>
-      <span style="color: red;">● Red</span> – The photo is not usable and should be retaken.<br>
-      <span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br>
-      <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
-    </p>
-    
   <div class="upload-container" id="uploadBox">
     <p>Drag & drop your JPG or PNG file here</p>
     <p>or</p>
@@ -246,28 +172,10 @@
   </div>
 
   <script>
-    function openModal(imageSrc) {
-      const modal = document.getElementById("imageModal");
-      const modalImage = document.getElementById("modalImage");
-      modalImage.src = imageSrc;
-      modal.style.display = "flex";
-      requestAnimationFrame(() => {
-        modal.classList.add("show");
-      });
-    }
-
-    function closeModal() {
-      const modal = document.getElementById("imageModal");
-      modal.classList.remove("show");
-      setTimeout(() => {
-        modal.style.display = "none";
-        document.getElementById("modalImage").src = "";
-      }, 500);
-    }
-
     const uploadBox = document.getElementById('uploadBox');
     const fileInput = document.getElementById('fileUpload');
     const previewImage = document.getElementById('previewImage');
+    const submitButton = document.getElementById('submitButton');
 
     uploadBox.addEventListener('dragover', (e) => {
       e.preventDefault();
@@ -290,11 +198,12 @@
 
     function handleFileUpload(file) {
       if (!file.type.startsWith('image/')) return;
+
       const reader = new FileReader();
       reader.onload = (e) => {
         previewImage.src = e.target.result;
         previewImage.style.display = 'block';
-    document.getElementById("submitButton").style.display = 'inline-block';
+        submitButton.style.display = 'inline-block';
       };
       reader.readAsDataURL(file);
     }
