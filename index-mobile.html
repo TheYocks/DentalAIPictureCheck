@@ -238,7 +238,6 @@
 <img alt="Preview" id="previewImage" src="" style="max-width: 100%; max-height: 300px; border-radius: 8px; display: block; margin-left: auto; margin-right: auto;"/>
 <br/>
 <button id="removeButton" style="position: absolute; top: 10px; right: 10px; background-color: #ff4d4d; color: white; padding: 0.2rem 0.5rem; font-size: 1rem; border: none; border-radius: 50%; cursor: pointer; z-index: 10;">×</button>
-
 <div id="submitWrapper" style="margin-top: 1rem; display: none;">
 <button id="submitButton" style="
     background-color: #28a745;
@@ -249,135 +248,64 @@
     font-size: 1rem;
     cursor: pointer;
   ">Submit</button>
-<p id="confirmationMessage" style="display:none; color: #0f0; font-size: 1rem; margin-top: 0.5rem;">
-    ✅ Your photo has been submitted. You will receive the result shortly.
-  </p>
 </div>
 </div>
 </div>
-<script>
-    const uploadBox = document.getElementById('uploadBox');
-    const fileInput = document.getElementById('fileUpload');
-    const previewImage = document.getElementById('previewImage');
-    const submitButton = document.getElementById('submitButton');
-
-    uploadBox.addEventListener('dragover', (e) => {
-      e.preventDefault();
-      uploadBox.classList.add('dragover');
-    });
-
-    uploadBox.addEventListener('dragleave', () => {
-      uploadBox.classList.remove('dragover');
-    });
-
-    uploadBox.addEventListener('drop', (e) => {
-      e.preventDefault();
-      uploadBox.classList.remove('dragover');
-      handleFileUpload(e.dataTransfer.files[0]);
-    });
-
-    fileInput.addEventListener('change', () => {
-      handleFileUpload(fileInput.files[0]);
-    });
-
-    function handleFileUpload(file) {
-      if (!file.type.startsWith('image/')) return;
-
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        previewImage.src = e.target.result;
-        previewImage.style.display = 'block';
-        submitButton.style.display = 'inline-block';
-      };
-      reader.readAsDataURL(file);
-    }
-  
-  if (window.innerWidth < 600) {
-    const uploadLabel = document.querySelector("label[for='fileUpload']");
-    uploadLabel.addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("fileUpload").click();
-    });
-  }
-
-    const submitButton = document.getElementById("submitButton");
-    const confirmationMessage = document.getElementById("confirmationMessage");
-    const submitWrapper = document.getElementById("submitWrapper");
-
-    fileInput.addEventListener("change", () => {
-      if (submitWrapper) submitWrapper.style.display = "block";
-    });
-
-    submitButton.addEventListener("click", () => {
-      confirmationMessage.style.display = "block";
-    });
-
-    removeButton.addEventListener("click", () => {
-      if (submitWrapper) {
-        submitWrapper.style.display = "none";
-        confirmationMessage.style.display = "none";
-      }
-    });
-</script>
 <div class="modal" id="imageModal" onclick="closeModal()">
 <span class="close" onclick="closeModal()">×</span>
 <div class="modal-content">
 <img alt="Zoomed Photo" id="modalImage" src=""/>
 </div>
 </div>
-<script>
-    function openModal(imageSrc) {
-      const modal = document.getElementById("imageModal");
-      const modalImage = document.getElementById("modalImage");
-      modalImage.src = imageSrc;
-      modal.style.display = "flex";
-      requestAnimationFrame(() => {
-        modal.classList.add("show");
-      });
-    }
+<div id="confirmationOverlay" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); color: #fff; font-size: 1.4rem; display: none; align-items: center; justify-content: center; text-align: center; z-index: 9999; padding: 2rem; font-family: sans-serif;">✅ Your photo has been submitted.
+You will receive the result shortly.
 
-    function closeModal() {
-      const modal = document.getElementById("imageModal");
-      modal.classList.remove("show");
-      setTimeout(() => {
-        modal.style.display = "none";
-        document.getElementById("modalImage").src = "";
-      }, 500);
-    }
-  
-  if (window.innerWidth < 600) {
-    const uploadLabel = document.querySelector("label[for='fileUpload']");
-    uploadLabel.addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("fileUpload").click();
-    });
-  }
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const fileInput = document.getElementById("fileUpload");
-    const previewImage = document.getElementById("previewImage");
-    const previewContainer = document.getElementById("previewContainer");
-    const removeButton = document.getElementById("removeButton");
+Tap anywhere to dismiss.</div><script>
+document.addEventListener("DOMContentLoaded", function () {
+  const fileInput = document.getElementById("fileUpload");
+  const previewImage = document.getElementById("previewImage");
+  const previewContainer = document.getElementById("previewContainer");
+  const removeButton = document.getElementById("removeButton");
+  const submitButton = document.getElementById("submitButton");
+  const submitWrapper = document.getElementById("submitWrapper");
+  const confirmationOverlay = document.getElementById("confirmationOverlay");
 
-    fileInput.addEventListener("change", () => {
-      const file = fileInput.files[0];
-      if (!file || !file.type.startsWith("image/")) return;
+  fileInput.addEventListener("change", function () {
+    const file = this.files[0];
+    if (!file || !file.type.startsWith("image/")) return;
 
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        previewImage.src = e.target.result;
-        previewContainer.style.display = "block";
-      };
-      reader.readAsDataURL(file);
-    });
-
-    removeButton.addEventListener("click", () => {
-      fileInput.value = "";
-      previewImage.src = "";
-      previewContainer.style.display = "none";
-    });
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage.src = e.target.result;
+      previewImage.style.display = "block";
+      previewContainer.style.display = "block";
+      submitWrapper.style.display = "block";
+    };
+    reader.readAsDataURL(file);
   });
-</script>
-</body>
+
+  removeButton.addEventListener("click", function () {
+    fileInput.value = "";
+    previewImage.src = "";
+    previewContainer.style.display = "none";
+    submitWrapper.style.display = "none";
+    confirmationOverlay.style.display = "none";
+  });
+
+  submitButton.addEventListener("click", function () {
+    previewContainer.style.display = "none";
+    submitWrapper.style.display = "none";
+    confirmationOverlay.style.display = "flex";
+    confirmationOverlay.style.opacity = 0;
+    setTimeout(() => {
+      confirmationOverlay.style.transition = "opacity 0.5s ease-in-out";
+      confirmationOverlay.style.opacity = 1;
+    }, 10);
+  });
+
+  confirmationOverlay.addEventListener("click", function () {
+    confirmationOverlay.style.display = "none";
+  });
+});
+</script></body>
 </html>
