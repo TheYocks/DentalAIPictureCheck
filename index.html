@@ -272,11 +272,13 @@
       reader.readAsDataURL(file);
     }
   
-    if (window.innerWidth < 600) {
-      document.getElementById("uploadBox").addEventListener("click", () => {
-        document.getElementById("fileUpload").click();
-      });
-    }
+  if (window.innerWidth < 600) {
+    const uploadLabel = document.querySelector("label[for='fileUpload']");
+    uploadLabel.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.getElementById("fileUpload").click();
+    });
+  }
 </script>
 
   <div id="imageModal" class="modal" onclick="closeModal()">
@@ -306,11 +308,13 @@
       }, 500);
     }
   
-    if (window.innerWidth < 600) {
-      document.getElementById("uploadBox").addEventListener("click", () => {
-        document.getElementById("fileUpload").click();
-      });
-    }
+  if (window.innerWidth < 600) {
+    const uploadLabel = document.querySelector("label[for='fileUpload']");
+    uploadLabel.addEventListener("click", (e) => {
+      e.preventDefault();
+      document.getElementById("fileUpload").click();
+    });
+  }
 </script>
 </body>
 </html>
