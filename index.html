@@ -186,7 +186,6 @@
 <div class="photo-card">
 <img alt="Front View with Smile" onclick="openModal('front-smile-detail.jpg')" src="front-smile.jpg"/>
 <div class="photo-caption">Front View – Smiling</div>
-
 <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
 </div>
 <div class="photo-card">
@@ -212,7 +211,7 @@
     font-weight:bold;
     cursor:pointer;
   ">📷 Upload a Photo</label>
-</div>
+<input accept=".jpg,.jpeg,.png" id="fileUpload" type="file"/></div>
 </div>
 <p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
     Once you upload your photo, it will be analyzed by our AI system. You'll receive feedback based on the image quality:
@@ -225,10 +224,10 @@
 <p>Drag &amp; drop your JPG or PNG file here</p>
 <p>or</p>
 <label for="fileUpload">Click to browse</label>
-<input accept=".jpg,.jpeg,.png" id="fileUpload" type="file"/>
-<img alt="" class="preview-image" id="previewImage" src="" style="display:none;">
+
+<img alt="" class="preview-image" id="previewImage" src="" style="display:none;"/>
 <button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
-</img></div>
+</div>
 <script>
     const uploadBox = document.getElementById('uploadBox');
     const fileInput = document.getElementById('fileUpload');
@@ -306,4 +305,3 @@
 </script>
 </body>
 </html>
-
