@@ -174,21 +174,6 @@
       cursor: pointer;
       z-index: 1100;
     }
-
-    @media (max-width: 600px) {
-      .drag-message {
-        display: none;
-      }
-      .upload-label {
-        display: inline-block;
-        background-color: #00bfff;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
-        color: white;
-        font-size: 1rem;
-        margin-top: 1rem;
-      }
-    }
 </style>
 </head>
 <body>
@@ -226,10 +211,10 @@
     <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
   </p>
 
-  <div class="upload-container" id="uploadBox">
-    <p class="drag-message">Drag & drop your JPG or PNG file here</p>
+  <div class="upload-container" id="uploadContainer" id="uploadBox">
+    <p>Drag & drop your JPG or PNG file here</p>
     <p>or</p>
-    <label for="fileUpload" class="upload-label">Click to browse</label>
+    <label for="fileUpload">Click to browse</label>
     <input type="file" id="fileUpload" accept=".jpg,.jpeg,.png" />
     <img id="previewImage" class="preview-image" src="" alt="" style="display:none;" />
     <button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
@@ -271,13 +256,7 @@
       };
       reader.readAsDataURL(file);
     }
-  
-    if (window.innerWidth < 600) {
-      document.getElementById("uploadBox").addEventListener("click", () => {
-        document.getElementById("fileUpload").click();
-      });
-    }
-</script>
+  </script>
 
   <div id="imageModal" class="modal" onclick="closeModal()">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -305,25 +284,21 @@
         document.getElementById("modalImage").src = "";
       }, 500);
     }
-  
-    if (window.innerWidth < 600) {
-      document.getElementById("uploadBox").addEventListener("click", () => {
-        document.getElementById("fileUpload").click();
-      });
-    }
-</script>
+  </script>
 
 <script>
-  function isMobileDevice() {
-    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-  }
-
-  if (isMobileDevice()) {
-    const dragText = document.querySelector(".drag-message");
-    if (dragText) {
-      dragText.style.display = "none";
+  window.addEventListener("DOMContentLoaded", function () {
+    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+    if (isMobile) {
+      const uploadContainer = document.getElementById("uploadContainer");
+      if (uploadContainer) {
+        const dragMessage = uploadContainer.querySelector(".drag-message");
+        const orText = uploadContainer.querySelector("p:nth-of-type(2)");
+        if (dragMessage) dragMessage.style.display = "none";
+        if (orText) orText.style.display = "none";
+      }
     }
-  }
+  });
 </script>
 </body>
 
