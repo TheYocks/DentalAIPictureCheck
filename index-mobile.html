@@ -307,5 +307,26 @@ document.addEventListener("DOMContentLoaded", function () {
     confirmationOverlay.style.display = "none";
   });
 });
-</script></body>
+</script>
+<script>
+  function openModal(imageSrc) {
+    const modal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    modalImage.src = imageSrc;
+    modal.style.display = "flex";
+    requestAnimationFrame(() => {
+      modal.classList.add("show");
+    });
+  }
+
+  function closeModal() {
+    const modal = document.getElementById("imageModal");
+    modal.classList.remove("show");
+    setTimeout(() => {
+      modal.style.display = "none";
+      document.getElementById("modalImage").src = "";
+    }, 500);
+  }
+</script>
+</body>
 </html>
