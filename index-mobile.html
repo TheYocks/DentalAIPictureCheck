@@ -222,7 +222,7 @@
 <span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br/>
 <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
   </p>
-<div class="upload-container" id="uploadContainer" style="text-align:center; margin-top:2rem;">
+<div class="upload-container" id="uploadContainer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 2rem auto; max-width: 90%;">
 <label for="fileUpload" style="
       display:inline-block;
       background-color:#00bfff;
@@ -233,7 +233,27 @@
       font-weight:bold;
       cursor:pointer;
     ">📷 Upload a Photo</label>
-<input accept="image/*" id="fileUpload" style="display:none;" type="file"/>
+<input accept="image/*" id="fileUpload" multiple="" style="display:none;" type="file"/>
+<div id="previewContainer" style="margin-top:1rem; display:none; text-align:center; position: relative;">
+<img alt="Preview" id="previewImage" src="" style="max-width: 100%; max-height: 300px; border-radius: 8px; display: block; margin-left: auto; margin-right: auto;"/>
+<br/>
+<button id="removeButton" style="position: absolute; top: 10px; right: 10px; background-color: #ff4d4d; color: white; padding: 0.2rem 0.5rem; font-size: 1rem; border: none; border-radius: 50%; cursor: pointer; z-index: 10;">×</button>
+
+<div id="submitWrapper" style="margin-top: 1rem; display: none;">
+<button id="submitButton" style="
+    background-color: #28a745;
+    color: white;
+    padding: 0.6rem 1.4rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  ">Submit</button>
+<p id="confirmationMessage" style="display:none; color: #0f0; font-size: 1rem; margin-top: 0.5rem;">
+    ✅ Your photo has been submitted. You will receive the result shortly.
+  </p>
+</div>
+</div>
 </div>
 <script>
     const uploadBox = document.getElementById('uploadBox');
@@ -279,6 +299,25 @@
       document.getElementById("fileUpload").click();
     });
   }
+
+    const submitButton = document.getElementById("submitButton");
+    const confirmationMessage = document.getElementById("confirmationMessage");
+    const submitWrapper = document.getElementById("submitWrapper");
+
+    fileInput.addEventListener("change", () => {
+      if (submitWrapper) submitWrapper.style.display = "block";
+    });
+
+    submitButton.addEventListener("click", () => {
+      confirmationMessage.style.display = "block";
+    });
+
+    removeButton.addEventListener("click", () => {
+      if (submitWrapper) {
+        submitWrapper.style.display = "none";
+        confirmationMessage.style.display = "none";
+      }
+    });
 </script>
 <div class="modal" id="imageModal" onclick="closeModal()">
 <span class="close" onclick="closeModal()">×</span>
@@ -314,6 +353,31 @@
     });
   }
 </script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const fileInput = document.getElementById("fileUpload");
+    const previewImage = document.getElementById("previewImage");
+    const previewContainer = document.getElementById("previewContainer");
+    const removeButton = document.getElementById("removeButton");
+
+    fileInput.addEventListener("change", () => {
+      const file = fileInput.files[0];
+      if (!file || !file.type.startsWith("image/")) return;
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        previewImage.src = e.target.result;
+        previewContainer.style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    });
+
+    removeButton.addEventListener("click", () => {
+      fileInput.value = "";
+      previewImage.src = "";
+      previewContainer.style.display = "none";
+    });
+  });
+</script>
 </body>
 </html>
-
