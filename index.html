@@ -186,6 +186,19 @@
     <div class="photo-card">
       <img src="front-smile.jpg" onclick="openModal('front-smile-detail.jpg')" alt="Front View with Smile" />
       <div class="photo-caption">Front View – Smiling</div>
+<div id="mobileUploadOnly" style="display:none; text-align:center; margin-top:2rem;">
+  <label for="fileUpload" style="
+    display:inline-block;
+    background-color:#00bfff;
+    color:white;
+    padding:1rem 2rem;
+    font-size:1.1rem;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+  ">📷 Upload a Photo</label>
+</div>
+
       <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
     </div>
     <div class="photo-card">
@@ -289,14 +302,12 @@
 <script>
   window.addEventListener("DOMContentLoaded", function () {
     const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-    if (isMobile) {
-      const uploadContainer = document.getElementById("uploadContainer");
-      if (uploadContainer) {
-        const dragMessage = uploadContainer.querySelector(".drag-message");
-        const orText = uploadContainer.querySelector("p:nth-of-type(2)");
-        if (dragMessage) dragMessage.style.display = "none";
-        if (orText) orText.style.display = "none";
-      }
+    const uploadContainer = document.getElementById("uploadContainer");
+    const mobileUploadOnly = document.getElementById("mobileUploadOnly");
+
+    if (isMobile && uploadContainer && mobileUploadOnly) {
+      uploadContainer.style.display = "none";
+      mobileUploadOnly.style.display = "block";
     }
   });
 </script>
