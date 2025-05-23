@@ -224,6 +224,7 @@
 <p>Drag &amp; drop your JPG or PNG file here</p>
 <p>or</p>
 <label for="fileUpload">Click to browse</label>
+
 <img alt="" class="preview-image" id="previewImage" src="" style="display:none;"/>
 <button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
 </div>
@@ -302,19 +303,5 @@
     }
   });
 </script>
-<script>
-  window.addEventListener("DOMContentLoaded", function () {
-    const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
-    if (isMobile) {
-      const hideSelectors = [".photo-grid", ".upload-container", "p", "h1"];
-      hideSelectors.forEach(selector => {
-        document.querySelectorAll(selector).forEach(el => el.style.display = "none");
-      });
-      const logo = document.querySelector('img[src="logo-smilecheckai.png"]');
-      const mobileUpload = document.getElementById("mobileUploadOnly");
-      if (mobileUpload) mobileUpload.style.display = "block";
-      if (logo) logo.style.display = "block";
-    }
-  });
-</script></body>
+</body>
 </html>
