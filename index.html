@@ -1,12 +1,11 @@
 
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<title>SmileCheck AI</title>
-<style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmileCheck AI</title>
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
     :root {
@@ -190,64 +189,53 @@
         margin-top: 1rem;
       }
     }
-
-@media (max-width: 600px) {
-  .drag-message {
-    display: none !important;
-  }
-  .upload-label {
-    display: inline-block;
-    background-color: #00bfff;
-    padding: 0.8rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 8px;
-    color: white;
-    margin-top: 1rem;
-  }
-}
 </style>
 </head>
 <body>
-<h1>How to Take Your Dental Photos</h1>
-<p style="text-align:center; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1rem; color: var(--muted-text);">
+  <h1>How to Take Your Dental Photos</h1>
+  <p style="text-align:center; max-width: 600px; margin: 0 auto 2rem auto; font-size: 1rem; color: var(--muted-text);">
     These photos are essential for the pre-design and evaluation of your dental case. They help ensure accurate planning, but depending on the situation, additional images may be required for a complete assessment.
   </p>
-<div class="photo-grid">
-<div class="photo-card">
-<img alt="Front View with Smile" onclick="openModal('front-smile-detail.jpg')" src="front-smile.jpg"/>
-<div class="photo-caption">Front View – Smiling</div>
-<div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
-</div>
-<div class="photo-card">
-<img alt="Front View Relaxed" onclick="openModal('front-relaxed-detail.jpg')" src="front-relaxed.jpg"/>
-<div class="photo-caption">Front View – Relaxed</div>
-<div class="instructions">Head upright, mouth closed, ears uncovered, no glasses.</div>
-</div>
-<div class="photo-card">
-<img alt="Side Profile" onclick="openModal('side-profile-detail.jpg')" src="side-profile.jpg"/>
-<div class="photo-caption">Side Profile</div>
-<div class="instructions">Rotate 90°, show full profile. Keep hair away and look straight.</div>
-</div>
-</div>
-<div style="text-align:center; margin-top: 6rem;">
-<img alt="SmileCheck AI Logo" src="logo-smilecheckai.png" style="max-width: 250px; margin-bottom: 1rem;"/>
-</div>
-<p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
+
+  <div class="photo-grid">
+    <div class="photo-card">
+      <img src="front-smile.jpg" onclick="openModal('front-smile-detail.jpg')" alt="Front View with Smile" />
+      <div class="photo-caption">Front View – Smiling</div>
+      <div class="instructions">Face the camera, eyes open, natural smile, and visible teeth.</div>
+    </div>
+    <div class="photo-card">
+      <img src="front-relaxed.jpg" onclick="openModal('front-relaxed-detail.jpg')" alt="Front View Relaxed" />
+      <div class="photo-caption">Front View – Relaxed</div>
+      <div class="instructions">Head upright, mouth closed, ears uncovered, no glasses.</div>
+    </div>
+    <div class="photo-card">
+      <img src="side-profile.jpg" onclick="openModal('side-profile-detail.jpg')" alt="Side Profile" />
+      <div class="photo-caption">Side Profile</div>
+      <div class="instructions">Rotate 90°, show full profile. Keep hair away and look straight.</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top: 6rem;">
+    <img src="logo-smilecheckai.png" alt="SmileCheck AI Logo" style="max-width: 250px; margin-bottom: 1rem;">
+  </div>
+  <p style="text-align:center; max-width: 600px; margin: 0 auto; font-size: 1rem; color: var(--muted-text);">
     Once you upload your photo, it will be analyzed by our AI system. You'll receive feedback based on the image quality:
-    <br/><br/>
-<span style="color: red;">● Red</span> – The photo is not usable and should be retaken.<br/>
-<span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br/>
-<span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
+    <br><br>
+    <span style="color: red;">● Red</span> – The photo is not usable and should be retaken.<br>
+    <span style="color: gold;">● Yellow</span> – The photo is usable but could be improved.<br>
+    <span style="color: limegreen;">● Green</span> – The photo is ideal and ready to use.
   </p>
-<div class="upload-container" id="uploadBox">
-<p class="drag-message">Drag &amp; drop your JPG or PNG file here</p>
-<p>or</p>
-<label class="upload-label" for="fileUpload">Click to browse</label>
-<input accept=".jpg,.jpeg,.png" id="fileUpload" type="file"/>
-<img alt="" class="preview-image" id="previewImage" src="" style="display:none;">
-<button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
-</img></div>
-<script>
+
+  <div class="upload-container" id="uploadBox">
+    <p class="drag-message">Drag & drop your JPG or PNG file here</p>
+    <p>or</p>
+    <label for="fileUpload" class="upload-label">Click to browse</label>
+    <input type="file" id="fileUpload" accept=".jpg,.jpeg,.png" />
+    <img id="previewImage" class="preview-image" src="" alt="" style="display:none;" />
+    <button id="submitButton" style="display:none; margin-top: 1rem; padding: 0.6rem 1.5rem; font-size: 1rem; border: none; border-radius: 6px; background-color: #00bfff; color: white; cursor: pointer;">Submit Image</button>
+  </div>
+
+  <script>
     const uploadBox = document.getElementById('uploadBox');
     const fileInput = document.getElementById('fileUpload');
     const previewImage = document.getElementById('previewImage');
@@ -284,21 +272,21 @@
       reader.readAsDataURL(file);
     }
   
-  if (window.innerWidth < 600) {
-    const uploadLabel = document.querySelector("label[for='fileUpload']");
-    uploadLabel.addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("fileUpload").click();
-    });
-  }
+    if (window.innerWidth < 600) {
+      document.getElementById("uploadBox").addEventListener("click", () => {
+        document.getElementById("fileUpload").click();
+      });
+    }
 </script>
-<div class="modal" id="imageModal" onclick="closeModal()">
-<span class="close" onclick="closeModal()">×</span>
-<div class="modal-content">
-<img alt="Zoomed Photo" id="modalImage" src=""/>
-</div>
-</div>
-<script>
+
+  <div id="imageModal" class="modal" onclick="closeModal()">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Zoomed Photo" />
+    </div>
+  </div>
+
+  <script>
     function openModal(imageSrc) {
       const modal = document.getElementById("imageModal");
       const modalImage = document.getElementById("modalImage");
@@ -318,14 +306,27 @@
       }, 500);
     }
   
-  if (window.innerWidth < 600) {
-    const uploadLabel = document.querySelector("label[for='fileUpload']");
-    uploadLabel.addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("fileUpload").click();
-    });
+    if (window.innerWidth < 600) {
+      document.getElementById("uploadBox").addEventListener("click", () => {
+        document.getElementById("fileUpload").click();
+      });
+    }
+</script>
+
+<script>
+  function isMobileDevice() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+  }
+
+  if (isMobileDevice()) {
+    const dragText = document.querySelector(".drag-message");
+    if (dragText) {
+      dragText.style.display = "none";
+    }
   }
 </script>
 </body>
+
 </html>
 
+</html>
